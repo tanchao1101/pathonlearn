@@ -37,8 +37,14 @@ def mian():
     our_plane = OurPlane(screen)
     # 播放帧数
     frame = 0
+    clock = pygame.time.Clock()
 
     while True:
+        # 设置针速率
+        clock.tick(60)
+        frame+=1
+        if frame>=50:
+            frame = 0
         #1.监听事件
         for event in pygame.event.get():
             #退出游戏
@@ -50,6 +56,16 @@ def mian():
                 # 游戏正在准备中，点击才能进入游戏
                 if status == 0:
                     status = 1
+            elif event.type == pygame.KEYDOWN:
+                if status == 1:
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        our_plane.move_up()
+                    elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        our_plane.move_down()
+                    elif event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                        our_plane.move_left()
+                    elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                        our_plane.move_right()
         # 更新游戏的状态
         if status == 0:
             # 绘制
@@ -60,7 +76,7 @@ def mian():
             # 绘制
             screen.blit(bg, bg.get_rect())
             #  绘制飞机
-            our_plane.blit_me()
+            our_plane.update(frame)
 
         pygame.display.flip()
 if __name__ == '__main__':
