@@ -66,6 +66,8 @@ def mian():
                         our_plane.move_left()
                     elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                         our_plane.move_right()
+                    elif event.key == pygame.K_SPACE:
+                        our_plane.shoot()
         # 更新游戏的状态
         if status == 0:
             # 绘制
@@ -77,6 +79,8 @@ def mian():
             screen.blit(bg, bg.get_rect())
             #  绘制飞机
             our_plane.update(frame)
+            #  绘制子弹
+            our_plane.bullets.update()
 
         pygame.display.flip()
 if __name__ == '__main__':

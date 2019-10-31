@@ -3,6 +3,10 @@
 """
 import pygame
 import constants
+
+from game.game.bullet import Bullet
+
+
 class Plane(pygame.sprite.Sprite):
     # 飞机的图片
     plane_images = []
@@ -28,6 +32,9 @@ class Plane(pygame.sprite.Sprite):
         self.plane_w, self.plane_h = self.img_list[0].get_size()
         # 游戏窗口的宽高
         self.width, self.height = self.screen.get_size()
+        # 改变飞机的初始位置
+        self.rect.left = int((self.width - self.plane_w) / 2)
+        self.rect.top = int(self.height/2)
     def load_src(self):
         # 加载静态资源
         # 飞机的图像
@@ -63,7 +70,8 @@ class Plane(pygame.sprite.Sprite):
         self.active = False
     def shoot(self):
         # 飞机发射子弹
-        pass
+        bullet = Bullet( self.screen, self , 15)
+        self.bullets.add(bullet)
 
 class OurPlane(Plane):
     # 飞机的图片
